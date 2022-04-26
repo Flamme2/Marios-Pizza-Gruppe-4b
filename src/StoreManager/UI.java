@@ -1,5 +1,8 @@
 package StoreManager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class UI {
@@ -25,5 +28,22 @@ public class UI {
 
   public  void SelectNextClientOrder(){
     System.out.println("Next Client..., Please Step forward!");
+  }
+
+  public  void ProcceedInfo(){
+    System.out.println("you have a new order...!");
+    System.out.println("Would you like to Delete order once delivered ? ");
+    System.out.println("if yes, Press any key to pursue" +
+        "...");
+  }
+  public void ReadKey() throws IOException {
+    // uncomment below to implement key reader for any keys
+    /*
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    br.readLine();
+
+     */
+
+    System.in.read();
   }
 }

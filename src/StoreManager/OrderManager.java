@@ -14,7 +14,7 @@ public class OrderManager
 
   Menu _menu;
   // global variable for current chosen pizza
-  List<Order> currentPizzaOrder = new ArrayList<>();
+  List<IItem> currentPizzaOrder = new ArrayList<>();
   IOrder clientOrder;
   StoreQueue _storeQueue;
   UI _UIcontext;
@@ -32,7 +32,7 @@ public class OrderManager
     _UIcontext = new UI();
   }
 
-  private Order makeOrder(){
+  private List<IItem> makeOrder(){
     Dictionary<Integer, IItem> menu = _menu.getMenuKort();
     //listOfChosenOrder.clear();
     int qty = _UIcontext.GiveOrderQuantity();
@@ -58,12 +58,12 @@ public class OrderManager
         }
       }
     }
-    return new Order(listOfChosenOrder, OrderState.Preparing);
-   // return listOfChosenOrder;
+    //return new Order(listOfChosenOrder, OrderState.Preparing);
+    return listOfChosenOrder;
   }
   public void viewOrder(){
     currentPizzaOrder.clear();
-    currentPizzaOrder.add(makeOrder());
+    currentPizzaOrder = makeOrder();
     System.out.println(currentPizzaOrder.size());
     System.out.println(currentPizzaOrder.get(0));
     System.out.println(" ---YOUR CHOICE--- ");
@@ -96,21 +96,21 @@ public class OrderManager
   }
   public void RemoveOrderFromQueue(){
     IOrder value = SelectClientOrder();
-    //_storeQueue.DeleteOrder(lst);
+    lst.remove(value);
   }
 
   public void viewQueueList(){ // the bug is in the method, somehow copy the order to preview client
-    AddOrderToQueue();
+    //AddOrderToQueue();
     System.out.println(" ---QUEUE INFO--- ");
-
-    for (IOrder item: lst) {
-
-      System.out.println("Client ID: "+ item.GetClientId()+" | Date&Time: "+item.getOrderTime()
-                          + "\n| OrderName: "+item.getOrderItem()
-                          +"\n| OrderStatus: " + item.GetOrderStatus() + "\n");
-
+    if (lst.isEmpty()){
+      System.out.println(" the order List is EMPTY...!");
+    }else{
+      for (IOrder item: lst) {
+        System.out.println("Client ID: "+ item.GetClientId()+" | Date&Time: "+item.getOrderTime()
+            + "\n| OrderName: "+item.getOrderItem()
+            +"\n| OrderStatus: " + item.GetOrderStatus() + "\n");
+      }
     }
-
 
 
   }
@@ -122,4 +122,6 @@ public class OrderManager
 
     return orderValue;
   }
+
+
 }
